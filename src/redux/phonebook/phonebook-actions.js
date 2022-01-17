@@ -1,8 +1,12 @@
 import { createAction } from "@reduxjs/toolkit";
 
-export const addContact = createAction("contact/add", (id, name, number) => ({
-  payload: { id, name, number },
-}));
+export const addContactRequest = createAction("contact/addContactRequest")
+export const addContactSuccess = createAction("contact/addContactSuccess")
+export const addContactReject=createAction("contact/addContactReject")
+
+// export const addContact = createAction("contact/add", (id, name, number) => ({
+//   payload: { id, name, number },
+// }));
 
 export const deleteContact = createAction("contact/delete");
 

@@ -1,26 +1,26 @@
 // import React, { Component } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { addContact } from "../../redux/phonebook/phonebook-actions";
+import { addContact } from "../../redux/phonebook/phonebook-operations";
 import { getContacts } from "../../redux/phonebook/phonebook-selectors";
 import { nanoid } from "nanoid";
 import s from "./Form.module.css";
 
 function Form() {
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    setId(nanoid(5));
+    // setId(nanoid(5));
     if (name === "name") {
       setName(value);
     }
     if (name === "number") {
-      setNumber(value);
+      setPhone(value);
     }
   };
 
@@ -31,14 +31,14 @@ function Form() {
     if (existingContact) {
       return alert(`${name} is already in contacts`);
     }
-    dispatch(addContact(id, name, number));
+    dispatch(addContact( name, phone));
     reset();
   };
 
   const reset = () => {
-    setId("");
+    // setId("");
     setName("");
-    setNumber("");
+    setPhone("");
   };
   return (
     <form className={s.Form} onSubmit={handleSubmit}>
@@ -64,7 +64,7 @@ function Form() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={number}
+          value={phone}
           onChange={handleChange}
         />
       </label>

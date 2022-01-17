@@ -1,12 +1,11 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
-import { addContact } from "./phonebook-actions";
-import { deleteContact } from "./phonebook-actions";
-import { changeFilter } from "./phonebook-actions";
-import initialContacts from "../../initialContacts.json";
+import { addContactRequest,addContactSuccess,addContactReject,deleteContact , changeFilter} from "./phonebook-actions";
 
-const contacts = createReducer(initialContacts, {
-  [addContact]: (state, { payload }) => [payload, ...state],
+
+
+const contacts = createReducer([], {
+ [ addContactSuccess]: (state, { payload }) => [payload, ...state],
   [deleteContact]: (state, { payload }) =>
     state.filter((contact) => contact.id !== payload),
 });
@@ -15,9 +14,16 @@ const filter = createReducer("", {
   [changeFilter]: (_, { payload }) => payload,
 });
 
+const loading = createReducer(false, {
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactReject]:()=>false
+})
+
 export default combineReducers({
   contacts,
   filter,
+  loading
 });
 
 //Vanilla redux
