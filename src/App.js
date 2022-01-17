@@ -1,13 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchContact } from "./redux/phonebook/phonebook-operations";
 import Container from "./сomponents/Container";
 import Form from "./сomponents/Form";
 import Filter from "./сomponents/Filter";
 import Contacts from "./сomponents/Contacts";
+
 import s from "./App.module.css";
 
 
 
 
 const App = () => {
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+  dispatch(fetchContact())
+},[dispatch])
   return (
     <Container>
       <h1 className={s.Title}>Phonebook</h1>

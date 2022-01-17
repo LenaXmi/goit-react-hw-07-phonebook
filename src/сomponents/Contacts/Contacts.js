@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/phonebook/phonebook-actions";
+import { deleteContact } from "../../redux/phonebook/phonebook-operations";
 import { getVisibleContacts } from "../../redux/phonebook/phonebook-selectors";
 import s from "./Contacts.module.css";
 
