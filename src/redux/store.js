@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
-  persistStore,
+ 
 
   FLUSH,
   REHYDRATE,

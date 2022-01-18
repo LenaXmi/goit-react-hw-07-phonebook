@@ -1,3 +1,4 @@
+import { createAsyncThunk} from '@reduxjs/toolkit'
 import axios from "axios";
 import {
   addContactRequest,
@@ -11,23 +12,49 @@ import {
   fetchContactReject,
 } from "./phonebook-actions";
 
-export const fetchContact = () => async (dispatch) => {
-  dispatch(fetchContactRequest());
-
-  try {
-    const { data } = await axios.get(
+export const fetchContact = createAsyncThunk(
+  'contact/fetchContact',
+  async () => {
+    const response = await axios.get(
       "https://61e42cd7fbee6800175eb21d.mockapi.io/contacts"
-    );
-    dispatch(fetchContactSuccess(data));
-  } catch (error) {
-    dispatch(fetchContactReject(error));
-  }
+     )
+ 
+    return response
+  })
 
-  //   axios
-  //     .get("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts")
-  //     .then(({ data }) => dispatch(fetchContactSuccess(data)))
-  //     .catch((error) => dispatch(fetchContactReject(error)));
-};
+
+
+//  export const fetchContact = () => async (dispatch) => {
+//   dispatch(fetchContactRequest());
+
+//   try {
+//     const { data } = await axios.get(
+//       "https://61e42cd7fbee6800175eb21d.mockapi.io/contacts"
+//     );
+//     dispatch(fetchContactSuccess(data));
+//   } catch (error) {
+//     dispatch(fetchContactReject(error.message));
+//   }
+
+//   //   axios
+//   //     .get("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts")
+//   //     .then(({ data }) => dispatch(fetchContactSuccess(data)))
+//   //     .catch((error) => dispatch(fetchContactReject(error)));
+// };
+
+
+// export const addContact = createAsyncThunk(
+//   'contact/addContact',
+
+//   async (name,phone) => {
+//      const {data}=await  axios
+//     .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", {
+//       name,
+//       phone,
+//     })
+//     return data
+//   }
+// )
 
 export const addContact = (name, phone) => async dispatch => {
   // const contact={name,phone}

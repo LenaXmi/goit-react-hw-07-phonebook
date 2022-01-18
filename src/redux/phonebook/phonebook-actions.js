@@ -1,8 +1,8 @@
 import { createAction } from "@reduxjs/toolkit";
 
-export const fetchContactRequest = createAction("contact/fetchContactRequest")
-export const fetchContactSuccess = createAction("contact/fetchContactSuccess")
-export const fetchContactReject = createAction("contact/fetchContactReject")
+// export const fetchContactRequest = createAction("contact/fetchContactRequest")
+// export const fetchContactSuccess = createAction("contact/fetchContactSuccess")
+// export const fetchContactReject = createAction("contact/fetchContactReject")
 
 export const addContactRequest = createAction("contact/addContactRequest")
 export const addContactSuccess = createAction("contact/addContactSuccess")

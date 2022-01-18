@@ -13,9 +13,10 @@ import {
   fetchContactReject,
 
 } from "./phonebook-actions";
+import { fetchContact, addContact } from "./phonebook-operations";
 
 const contacts = createReducer([], {
-  [fetchContactSuccess]:(_,{payload})=>payload,
+  [fetchContact.fulfilled]:(_, {payload})=>payload,
   [addContactSuccess]: (state, { payload }) => [payload, ...state],
   [deleteContactSuccess]: (state, { payload }) =>
     state.filter((contact) => contact.id !== payload),
@@ -26,9 +27,9 @@ const filter = createReducer("", {
 });
 
 const loading = createReducer(false, {
-  [fetchContactRequest]: () => true,
-  [fetchContactSuccess]: () => false,
-  [fetchContactReject]:()=>false,
+  [fetchContact.pending]: () => true,
+  [fetchContact.fulfilled]: () => false,
+  [fetchContact.rejected]:()=>false,
   [addContactRequest]: () => true,
   [addContactSuccess]: () => false,
   [addContactReject]: () => false,
