@@ -26,7 +26,7 @@ export const store = configureStore({
   reducer: {
     phonebook:  phonebookReducer
   },
-  middleware,
+ middleware,
   devTools: process.env.NODE_ENV === "development",
 });
 

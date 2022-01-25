@@ -1,18 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/phonebook/phonebook-operations";
+// import { deleteContact } from "../../redux/phonebook/phonebook-operations";
+import { contactOperations } from "../../redux/phonebook";
 import { getVisibleContacts, getContacts } from "../../redux/phonebook/phonebook-selectors";
 import s from "./Contacts.module.css";
 
 const Contacts = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
 
   const onDeleteContact = (id) => {
-    dispatch(deleteContact(id));
+    dispatch(contactOperations.deleteContact(id));
   };
   return (
     <>
-     {contacts.length>0&&( <ul className={s.ContactList}>
+    <ul className={s.ContactList}>
       {contacts.map(({ id, name, phone }) => (
         <li key={id} className={s.ContactItem}>
           <p className={s.ContactData}>
@@ -26,7 +27,7 @@ const Contacts = () => {
           </button>
         </li>
       ))}
-    </ul>)}
+    </ul>
    
     </>
    

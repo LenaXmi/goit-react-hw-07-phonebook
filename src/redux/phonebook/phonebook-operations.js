@@ -7,33 +7,78 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactReject,
-  fetchContactRequest,
-  fetchContactSuccess,
-  fetchContactReject,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsReject,
 } from "./phonebook-actions";
 
-export const fetchContact = createAsyncThunk(
-  'contact/fetchContact',
-  async () => {
-    const response = await axios.get(
+
+export const fetchContacts = createAsyncThunk(
+  'contact/fetchContacts',
+  async (_,{rejectWithValue}) => {
+    try { 
+       const { data } = await axios.get(
       "https://61e42cd7fbee6800175eb21d.mockapi.io/contacts"
-     )
- 
-    return response
-  })
+       );
+      return data
+    }
+    catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+export const addContact = createAsyncThunk(
+  'contact/addContact',
+
+  async (name, phone, {rejectWithValue}) => {
+    
+    try { 
+       const {data}=await  axios
+    .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", 
+      name,
+      phone
+    )
+      return data
+    }
+    catch (error) {
+       return rejectWithValue(error.message)
+    }
+   
+  
+
+  }
+)
+
+export const deleteContact = createAsyncThunk(
+  'contact/deleteContact',
+
+  async (id,{rejectWithValue}) => {
+    try {
+      const {data}=await axios.delete(`https://61e42cd7fbee6800175eb21d.mockapi.io/contacts/${id}`)
+      
+      return data.id
+    }
+    catch (error) {
+      return   rejectWithValue(error.message)
+    }
+  }
+)
 
 
+//Vanilla async
 
-//  export const fetchContact = () => async (dispatch) => {
-//   dispatch(fetchContactRequest());
+//  export const fetchContacts = () => async (dispatch) => {
+//   dispatch(fetchContactsRequest());
 
 //   try {
 //     const { data } = await axios.get(
 //       "https://61e42cd7fbee6800175eb21d.mockapi.io/contacts"
 //     );
-//     dispatch(fetchContactSuccess(data));
+//     console.log(data)
+//     dispatch(fetchContactsSuccess(data));
 //   } catch (error) {
-//     dispatch(fetchContactReject(error.message));
+//     dispatch(fetchContactsReject(error.message));
 //   }
 
 //   //   axios
@@ -43,51 +88,58 @@ export const fetchContact = createAsyncThunk(
 // };
 
 
+
 // export const addContact = createAsyncThunk(
 //   'contact/addContact',
 
 //   async (name,phone) => {
 //      const {data}=await  axios
-//     .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", {
-//       name,
+//     .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", 
+//       {name},
 //       phone,
-//     })
+//     )
 //     return data
 //   }
 // )
 
-export const addContact = (name, phone) => async dispatch => {
-  // const contact={name,phone}
-    dispatch(addContactRequest());
-    
-    try { 
-        const {data}=await  axios
-    .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", {
-      name,
-      phone,
-    })
-       dispatch(addContactSuccess(data)) 
-    }
-    catch (error) {
-        dispatch(addContactReject(error))
-    }
 
-//   axios
+
+// export const addContact = (name, phone) => async dispatch => {
+//   // const contact={name,phone}
+//     dispatch(addContactRequest());
+    
+//     try { 
+//         const {data}=await  axios
 //     .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", {
 //       name,
 //       phone,
 //     })
-//     .then(({ data }) => dispatch(addContactSuccess(data)))
-//     .catch((error) => dispatch(addContactReject(error)));
-};
+//       console.log(data)
+//        dispatch(addContactSuccess(data)) 
+//     }
+//     catch (error) {
+//         dispatch(addContactReject(error))
+//     }
 
-export const deleteContact = (id) => async dispatch => {
-  dispatch(deleteContactRequest());
+// //   axios
+// //     .post("https://61e42cd7fbee6800175eb21d.mockapi.io/contacts", {
+// //       name,
+// //       phone,
+// //     })
+// //     .then(({ data }) => dispatch(addContactSuccess(data)))
+// //     .catch((error) => dispatch(addContactReject(error)));
+// };
+
+
+
+
+// export const deleteContact = (id) => async dispatch => {
+//   dispatch(deleteContactRequest());
 
 
     
-  axios
-    .delete(`https://61e42cd7fbee6800175eb21d.mockapi.io/contacts/${id}`)
-    .then(() => dispatch(deleteContactSuccess(id)))
-    .catch((error) => dispatch(deleteContactReject(error)));
-};
+//   axios
+//     .delete(`https://61e42cd7fbee6800175eb21d.mockapi.io/contacts/${id}`)
+//     .then(() => dispatch(deleteContactSuccess(id)))
+//     .catch((error) => dispatch(deleteContactReject(error)));
+// };

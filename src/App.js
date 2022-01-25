@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {fetchContact}  from "./redux/phonebook/phonebook-operations";
+// import {fetchContact}  from "./redux/phonebook/phonebook-operations";
+import  {contactOperations} from './redux/phonebook'
 import Container from "./сomponents/Container";
 import Form from "./сomponents/Form";
 import Filter from "./сomponents/Filter";
@@ -16,10 +17,11 @@ const App = () => {
  
   const dispatch = useDispatch()
 
-// console.log(dispatch(fetchContact()))
+
   useEffect(() => {
-    dispatch(fetchContact())
-  }, [dispatch])
+  dispatch(contactOperations.fetchContacts())
+},[dispatch])
+
   return (
     <Container>
       <h1 className={s.Title}>Phonebook</h1>

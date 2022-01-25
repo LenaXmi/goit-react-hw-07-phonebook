@@ -8,17 +8,17 @@ import {
   deleteContactSuccess,
   deleteContactReject,
   changeFilter,
-  fetchContactRequest,
-  fetchContactSuccess,
-  fetchContactReject,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsReject,
 
 } from "./phonebook-actions";
-import { fetchContact, addContact } from "./phonebook-operations";
+import { fetchContacts, addContact,deleteContact } from "./phonebook-operations";
 
 const contacts = createReducer([], {
-  [fetchContact.fulfilled]:(_, {payload})=>payload,
-  [addContactSuccess]: (state, { payload }) => [payload, ...state],
-  [deleteContactSuccess]: (state, { payload }) =>
+  [fetchContacts.fulfilled]:(_, {payload})=>payload,
+  [addContact.fulfilled]: (state, { payload }) => [payload, ...state],
+  [deleteContact.fulfilled]: (state, { payload }) =>
     state.filter((contact) => contact.id !== payload),
 });
 
@@ -27,15 +27,11 @@ const filter = createReducer("", {
 });
 
 const loading = createReducer(false, {
-  [fetchContact.pending]: () => true,
-  [fetchContact.fulfilled]: () => false,
-  [fetchContact.rejected]:()=>false,
-  [addContactRequest]: () => true,
-  [addContactSuccess]: () => false,
-  [addContactReject]: () => false,
-  [deleteContactRequest]: () => true,
-  [deleteContactSuccess]: () => false,
-  [deleteContactReject]: () => false,
+  [fetchContacts.pending]: () => true,
+  [fetchContacts.fulfilled]: () => false,
+  [fetchContacts.rejected]:()=>false,
+ 
+
 });
 
 export default combineReducers({

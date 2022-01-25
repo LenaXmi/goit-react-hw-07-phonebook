@@ -1,7 +1,8 @@
 // import React, { Component } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { addContact } from "../../redux/phonebook/phonebook-operations";
+// import { addContact } from "../../redux/phonebook/phonebook-operations";
+import { contactOperations } from "../../redux/phonebook";
 import { getContacts } from "../../redux/phonebook/phonebook-selectors";
 import { nanoid } from "nanoid";
 import s from "./Form.module.css";
@@ -31,7 +32,7 @@ function Form() {
     if (existingContact) {
       return alert(`${name} is already in contacts`);
     }
-    dispatch(addContact( name, phone));
+    dispatch(contactOperations.addContact( {name, phone}));
     reset();
   };
 
