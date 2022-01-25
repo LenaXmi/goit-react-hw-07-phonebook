@@ -66,6 +66,8 @@ export const deleteContact = createAsyncThunk(
 )
 
 
+
+
 //Vanilla async
 
 //  export const fetchContacts = () => async (dispatch) => {
