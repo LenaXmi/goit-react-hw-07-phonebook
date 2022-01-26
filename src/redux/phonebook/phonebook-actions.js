@@ -1,5 +1,9 @@
 import { createAction } from "@reduxjs/toolkit";
 
+export const changeFilter = createAction("contact/changeFilter");
+
+
+//Redux toolkit actions
 // export const fetchContactsRequest = createAction("contact/fetchContactRequest")
 // export const fetchContactsSuccess = createAction("contact/fetchContactSuccess")
 // export const fetchContactsReject = createAction("contact/fetchContactReject")
@@ -12,8 +16,6 @@ import { createAction } from "@reduxjs/toolkit";
 // export const deleteContactSuccess = createAction("contact/deleteContactSuccess")
 // export const deleteContactReject=createAction("contact/deleteContactReject")
 
-
-export const changeFilter = createAction("contact/changeFilter");
 
 //Vanilla redux
 // export const addContact = (id, name, number) => ({

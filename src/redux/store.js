@@ -1,7 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
- 
-
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,7 +7,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-
 import phonebookReducer from "./phonebook/phonebook-reducers";
 
 const middleware = [
@@ -19,8 +16,6 @@ const middleware = [
     },
   }),
 ];
-
-
 
 export const store = configureStore({
   reducer: {

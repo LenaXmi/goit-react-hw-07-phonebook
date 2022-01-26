@@ -1,16 +1,5 @@
 import { createAsyncThunk} from '@reduxjs/toolkit'
 import axios from "axios";
-import {
-  addContactRequest,
-  addContactSuccess,
-  addContactReject,
-  deleteContactRequest,
-  deleteContactSuccess,
-  deleteContactReject,
-  fetchContactsRequest,
-  fetchContactsSuccess,
-  fetchContactsReject,
-} from "./phonebook-actions";
 
 
 export const fetchContacts = createAsyncThunk(
@@ -31,7 +20,7 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contact/addContact',
 
-  async (name, phone, {rejectWithValue}) => {
+  async (name, phone, rejectWithValue) => {
     
     try { 
        const {data}=await  axios
