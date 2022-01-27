@@ -1,36 +1,51 @@
-import { useSelector, useDispatch } from "react-redux";
-// import { deleteContact } from "../../redux/phonebook/phonebook-operations";
-import { contactOperations } from "../../redux/phonebook";
-import { getVisibleContacts, getContacts } from "../../redux/phonebook/phonebook-selectors";
+// import { useSelector, useDispatch } from "react-redux";
+// import { contactOperations } from "../../redux/phonebook";
+// import {
+//   getVisibleContacts,
+//   getContacts,
+// } from "../../redux/phonebook/phonebook-selectors";
+import { useGetContactsQuery, useDeleteContactMutation } from "../../redux/phonebook/phonebookSlise";
+import { Oval } from "react-loader-spinner";
 import s from "./Contacts.module.css";
 
 const Contacts = () => {
-  const contacts = useSelector(getVisibleContacts);
-  const dispatch = useDispatch();
+  const { data, isFetching } = useGetContactsQuery();
+  const [deleteContact]=useDeleteContactMutation()
+  // const contacts = useSelector(getVisibleContacts);
+  // const dispatch = useDispatch();
 
-  const onDeleteContact = (id) => {
-    dispatch(contactOperations.deleteContact(id));
-  };
+  // const onDeleteContact = (id) => {
+  //   dispatch(contactOperations.deleteContact(id));
+  // };
   return (
     <>
-    <ul className={s.ContactList}>
-      {contacts.map(({ id, name, phone }) => (
-        <li key={id} className={s.ContactItem}>
-          <p className={s.ContactData}>
-            {name}: {phone}
-          </p>
-          <button
-            onClick={() => onDeleteContact(id)}
-            className={s.ContactDelete}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
-   
+      {isFetching && (
+        <Oval
+          ariaLabel="loading-indicator"
+          height={50}
+          width={50}
+          strokeWidth={5}
+          color="black"
+          secondaryColor="grey"
+        />
+      )}
+      <ul className={s.ContactList}>
+        {data &&
+          data.map(({ id, name, phone }) => (
+            <li key={id} className={s.ContactItem}>
+              <p className={s.ContactData}>
+                {name}: {phone}
+              </p>
+              <button
+                onClick={() => deleteContact(id)}
+                className={s.ContactDelete}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+      </ul>
     </>
-   
   );
 };
 

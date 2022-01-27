@@ -1,29 +1,39 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { configureStore } from "@reduxjs/toolkit";
 import phonebookReducer from "./phonebook/phonebook-reducers";
-
-const middleware = [
-  ...getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
-];
+import { phonebookApi } from "./phonebook/phonebookSlise";
+// import {
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from "redux-persist";
 
 export const store = configureStore({
   reducer: {
-    phonebook:  phonebookReducer
+    phonebook: phonebookReducer,
+    [phonebookApi.reducerPath]:phonebookApi.reducer
   },
- middleware,
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    phonebookApi.middleware
+],
   devTools: process.env.NODE_ENV === "development",
 });
+
+
+
+
+//Middleware for redux persist
+// const middleware = [
+//   ...getDefaultMiddleware({
+//     serializableCheck: {
+//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//     },
+//   }),
+// ];
+
 
 
 //Vanilla redux
