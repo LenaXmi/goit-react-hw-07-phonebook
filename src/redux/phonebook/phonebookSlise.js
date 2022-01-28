@@ -27,4 +27,6 @@ export const phonebookApi = createApi({
   }),
 })
 
-export const { useGetContactsQuery, useDeleteContactMutation } = phonebookApi
+export const selectContactsResult = phonebookApi.endpoints.getContacts.select();
+
+export const { useGetContactsQuery, useDeleteContactMutation, useAddContactMutation } = phonebookApi

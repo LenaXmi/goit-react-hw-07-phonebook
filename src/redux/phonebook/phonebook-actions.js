@@ -17,7 +17,7 @@ export const changeFilter = createAction("contact/changeFilter");
 // export const deleteContactReject=createAction("contact/deleteContactReject")
 
 
-//Vanilla redux
+//Vanilla redux actions
 // export const addContact = (id, name, number) => ({
 //   type: types.ADD,
 //   payload: { id, name, number },

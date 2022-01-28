@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import phonebookReducer from "./phonebook/phonebook-reducers";
+// import phonebookReducer from "./phonebook/phonebook-reducers";
 import { phonebookApi } from "./phonebook/phonebookSlise";
+import { filter } from "./phonebook/phonebook-reducers";
+
 // import {
 //   FLUSH,
 //   REHYDRATE,
@@ -12,8 +14,9 @@ import { phonebookApi } from "./phonebook/phonebookSlise";
 
 export const store = configureStore({
   reducer: {
-    phonebook: phonebookReducer,
-    [phonebookApi.reducerPath]:phonebookApi.reducer
+
+    filter,
+    [phonebookApi.reducerPath]: phonebookApi.reducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware(),

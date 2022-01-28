@@ -1,22 +1,22 @@
-// import React, { Component } from 'react';
+
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-// import { addContact } from "../../redux/phonebook/phonebook-operations";
-import { contactOperations } from "../../redux/phonebook";
+// import { contactOperations } from "../../redux/phonebook";
 import { getContacts } from "../../redux/phonebook/phonebook-selectors";
-import { nanoid } from "nanoid";
+import { useAddContactMutation, useGetContactsQuery } from "../../redux/phonebook/phonebookSlise";
 import s from "./Form.module.css";
 
 function Form() {
-  // const [id, setId] = useState("");
+  const [addContact, { isLoading }] = useAddContactMutation()
+  const {data}=useGetContactsQuery()
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const contacts = useSelector(getContacts);
-  const dispatch = useDispatch();
+  // const contacts = useSelector(getContacts);
+  // const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    // setId(nanoid(5));
+  
     if (name === "name") {
       setName(value);
     }
@@ -27,17 +27,19 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const existingContact = contacts.find((contact) => name === contact.name);
+    addContact({name,phone})
+    const existingContact = data.find((contact) => name === contact.name);
 
     if (existingContact) {
+      reset()
       return alert(`${name} is already in contacts`);
     }
-    dispatch(contactOperations.addContact( {name, phone}));
+    // dispatch(contactOperations.addContact( {name, phone}));
     reset();
   };
 
   const reset = () => {
-    // setId("");
+  
     setName("");
     setPhone("");
   };
@@ -69,8 +71,9 @@ function Form() {
           onChange={handleChange}
         />
       </label>
-      <button className={s.FormBtn} type="submit">
-        Add contact
+      <button className={s.FormBtn} type="submit" >
+        {isLoading?'Adding':'Add contact'}
+        
       </button>
     </form>
   );

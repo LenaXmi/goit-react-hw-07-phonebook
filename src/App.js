@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import  {contactOperations} from './redux/phonebook'
+import { contactOperations } from './redux/phonebook'
+import { useGetContactsQuery } from "./redux/phonebook/phonebookSlise";
 import Container from "./сomponents/Container";
 import Form from "./сomponents/Form";
 import Filter from "./сomponents/Filter";
@@ -9,21 +10,25 @@ import s from "./App.module.css";
 
 
 const App = () => {
- 
-  const dispatch = useDispatch()
+ const {data, isFetching}=useGetContactsQuery('')
+//   const dispatch = useDispatch()
 
-  useEffect(() => {
-  dispatch(contactOperations.fetchContacts())
-},[dispatch])
+//   useEffect(() => {
+//   dispatch(contactOperations.fetchContacts())
+// },[dispatch])
 
   return (
-    <Container>
-      <h1 className={s.Title}>Phonebook</h1>
-      <Form />
-      <h2 className={s.Title}>Contacts</h2>
-      <Filter />
-      <Contacts />
-    </Container>
+    <>
+      {data && !isFetching ?
+        (<Container>
+          <h1 className={s.Title}>Phonebook</h1>
+          <Form />
+          <h2 className={s.Title}>Contacts</h2>
+          <Filter />
+          <Contacts />
+        </Container>) : ('Loading...')}
+    </>
+
   );
 };
 

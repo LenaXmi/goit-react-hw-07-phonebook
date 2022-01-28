@@ -1,22 +1,32 @@
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // import { contactOperations } from "../../redux/phonebook";
-// import {
-//   getVisibleContacts,
-//   getContacts,
-// } from "../../redux/phonebook/phonebook-selectors";
+import {getFilter} from "../../redux/phonebook/phonebook-selectors";
 import { useGetContactsQuery, useDeleteContactMutation } from "../../redux/phonebook/phonebookSlise";
+import { selectAllContacts } from "../../redux/phonebook/phonebook-selectors";
 import { Oval } from "react-loader-spinner";
 import s from "./Contacts.module.css";
 
+
+
+
 const Contacts = () => {
-  const { data, isFetching } = useGetContactsQuery();
-  const [deleteContact]=useDeleteContactMutation()
+  const { data, isFetching } = useGetContactsQuery('');
+  const [deleteContact] = useDeleteContactMutation()
+  const filtered = useSelector(getFilter)
+
   // const contacts = useSelector(getVisibleContacts);
   // const dispatch = useDispatch();
 
   // const onDeleteContact = (id) => {
   //   dispatch(contactOperations.deleteContact(id));
   // };
+
+  const normalizedFilter = filtered.toLowerCase();
+  const visibleContacts=data.filter(({ name }) =>
+    name.toLowerCase().includes(normalizedFilter)
+  );
+
+
   return (
     <>
       {isFetching && (
@@ -30,8 +40,8 @@ const Contacts = () => {
         />
       )}
       <ul className={s.ContactList}>
-        {data &&
-          data.map(({ id, name, phone }) => (
+        {data &&visibleContacts&&
+          visibleContacts.map(({ id, name, phone }) => (
             <li key={id} className={s.ContactItem}>
               <p className={s.ContactData}>
                 {name}: {phone}
